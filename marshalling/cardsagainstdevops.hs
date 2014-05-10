@@ -26,18 +26,29 @@ cardURL = concat ["https://raw.githubusercontent.com"
 
 
 main = do
+  -- Get a pre-seeded random generator
   gen <- newStdGen
+
+  -- Download and parse the CSV for the cards
   cards <- fmap (unzip . toList) . decode True <$> simpleHttp cardURL
+
+  -- Either display an error message or read a randomly chosen pair of cards
   putStrLn $ either id (readCards . chooseCards gen) cards
 
+-- Read cards by simply replacing any sequence of underscores ('_') in the
+-- black card with the contents of the white card
 readCards :: (String, String) -> String
 readCards (white, black) = subRegex (mkRegex "_+") black white
 
-chooseCards :: StdGen -> ([a], [a]) -> (a, a)
-chooseCards gen = flip evalState gen . both randomElem
+-- Pick one card each from the two piles of black and white cards
+-- Uses the State monad briefly to chain the two random selections
+chooseCards :: StdGen -> ([String], [String]) -> (String, String)
+chooseCards gen = flip evalState gen . both (state . randomElem)
 
-randomElem :: [a] -> State StdGen a
-randomElem xs = state $ first (xs !!) . randomR (0, length xs - 1)
+-- Pick a random element from a list, given a random generator
+-- Return the random element and the updated generator
+randomElem :: [a] -> StdGen -> (a, StdGen)
+randomElem xs = first (xs !!) . randomR (0, length xs - 1)
 
 
 
