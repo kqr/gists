@@ -1,3 +1,9 @@
+
+-- A short program to generate sentences from the
+-- first batch of "Cards Against DevOps".
+-- Compile and run for comedy.
+
+
 module Main where
 
 import Network.HTTP.Conduit    (simpleHttp)
