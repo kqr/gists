@@ -1,6 +1,6 @@
 
-A Gentle Introduction to Monad Transformers;
-============================================
+A Gentle Introduction to Monad Transformers
+===========================================
 
 or, Values as Exceptions
 ------------------------
