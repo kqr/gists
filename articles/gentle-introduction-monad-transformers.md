@@ -2,8 +2,8 @@
 A Gentle Introduction to Monad Transformers;
 ============================================
 
-         or, Values as Exceptions
---------------------------------------------
+or, Values as Exceptions
+------------------------
 
 
 ### Contents
@@ -19,6 +19,7 @@ A Gentle Introduction to Monad Transformers;
 [`ExceptIO`](#except-io)
 [Gotta Catch 'Em All](#catch)
 [Going General](#transformer)
+[Appendix A: Complete Program](#code)
 
 
 
