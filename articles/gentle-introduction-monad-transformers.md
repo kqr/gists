@@ -8,17 +8,17 @@ or, Values as Exceptions
 
 ### Contents
 
-[Either Left or Right](#either)
-[Introducing Side-Effects](#side-effects)
-[We Can Make Our Own Monads](#either-io)
-[Implementing Instances for Common Typeclasses](#type-classes)
-[Using `EitherIO`](#using)
-[Do You Even Lift?](#lifting)
-[Signalling Errors](#throwing)
-[`throwE`? What Is This, Java?](#java)
-[`ExceptIO`](#except-io)
-[Gotta Catch 'Em All](#catch)
-[Going General](#transformer)
+[Either Left or Right](#either)  
+[Introducing Side-Effects](#side-effects)  
+[We Can Make Our Own Monads](#either-io)  
+[Implementing Instances for Common Typeclasses](#type-classes)  
+[Using `EitherIO`](#using)  
+[Do You Even Lift?](#lifting)  
+[Signalling Errors](#throwing)  
+[`throwE`? What Is This, Java?](#java)  
+[`ExceptIO`](#except-io)  
+[Gotta Catch 'Em All](#catch)  
+[Going General](#transformer)  
 [Appendix A: Complete Program](#code)
 
 
