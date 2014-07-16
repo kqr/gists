@@ -450,9 +450,9 @@ clean.
 ```haskell
 getToken :: EitherIO LoginError Text
 getToken = do
-  liftIO $ T.putStrLn "Enter email address:"
+  liftIO (T.putStrLn "Enter email address:")
   input <- liftIO T.getLine
-  liftEither $ getDomain input
+  liftEither (getDomain input)
 ```
 
 If you try to run this in the interpreter, you'll get a nasty type error. The
@@ -479,7 +479,7 @@ userLogin = do
   token      <- getToken
   userpw     <- maybe (liftEither (Left NoSuchUser))
                   return (Map.lookup token users)
-  password   <- liftIO $ T.putStrLn "Enter your password:" >> T.getLine
+  password   <- liftIO (T.putStrLn "Enter your password:" >> T.getLine)
 
   if userpw == password
      then return token
@@ -564,13 +564,13 @@ userLogin = do
 <a name="java"/>
 ### `throwE`? What Is This, Java?
 
-No, of course not. But I did chose that name deliberately. What we have with
-our EitherIO monad is looking more and more like exceptions in languages like
+No, of course not. But I did choose that name deliberately. What we have with
+our `EitherIO` monad is looking more and more like exceptions in languages like
 Java, Python, C++ and so on. And that's not a bad way to view it.
 
 However, there are some differences. One big difference is that our
 "exceptions" are just normal values that are being returned from the
-function, while more traditional exceptions are interruptions of normal
+function, while more traditional (Java, Python) exceptions are interruptions of normal
 control flow. Another difference is that our "exceptions" are checked by the
 type system, so we can't forget to catch our exceptions.
 
@@ -606,7 +606,7 @@ Yes?
 ...catch them?
 
 Oh, I'm so happy you asked! Of course we can. And it's real simple too! We
-need to define a function that does the catching, call it `catchE`, so it
+need to define a function that does the catching. Call it `catchE`, so it
 looks similar to `throwE`.
 
 ```haskell
@@ -631,7 +631,7 @@ that catches all exceptions.
 ```haskell
 wrongPasswordHandler :: LoginError -> ExceptIO LoginError Text
 wrongPasswordHandler WrongPassword = do
-  liftIO $ T.putStrLn "Wrong password, one more chance."
+  liftIO (T.putStrLn "Wrong password, one more chance.")
   userLogin
 wrongPasswordHandler err = throwE err
 ```
@@ -761,7 +761,7 @@ loginDialogue = do
 
 wrongPasswordHandler :: LoginError -> ExceptT LoginError IO Text
 wrongPasswordHandler WrongPassword = do
-  lift $ T.putStrLn "Wrong password, one more chance."
+  lift (T.putStrLn "Wrong password, one more chance.")
   userLogin
 wrongPasswordHandler err = throwE err
 
@@ -780,7 +780,7 @@ userLogin = do
   token      <- getToken
   userpw     <- maybe (throwE NoSuchUser)
                   return (Map.lookup token users)
-  password   <- lift $ T.putStrLn "Enter your password:" >> T.getLine
+  password   <- lift (T.putStrLn "Enter your password:" >> T.getLine)
 
   if userpw == password
      then return token
@@ -788,9 +788,9 @@ userLogin = do
 
 getToken :: ExceptT LoginError IO Text
 getToken = do
-  lift $ T.putStrLn "Enter email address:"
+  lift (T.putStrLn "Enter email address:")
   input <- lift T.getLine
-  liftEither $ getDomain input
+  liftEither (getDomain input)
 
 getDomain :: Text -> Either LoginError Text
 getDomain email =
