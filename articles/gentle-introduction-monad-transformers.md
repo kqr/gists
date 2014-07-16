@@ -6,7 +6,7 @@ or, Values as Exceptions
 ------------------------
 
 
-### Contents
+### Table of Contents
 
 [Either Left or Right](#either)  
 [Introducing Side-Effects](#side-effects)  
