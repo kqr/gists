@@ -2,11 +2,27 @@
 A Gentle Introduction to Monad Transformers;
 ============================================
 
-   or, Exceptions as First-Class Values
+         or, Values as Exceptions
 --------------------------------------------
 
 
+### Contents
 
+[Either Left or Right](#either)
+[Introducing Side-Effects](#side-effects)
+[We Can Make Our Own Monads](#either-io)
+[Implementing Instances for Common Typeclasses](#type-classes)
+[Using `EitherIO`](#using)
+[Do You Even Lift?](#lifting)
+[Signalling Errors](#throwing)
+[`throwE`? What Is This, Java?](#java)
+[`ExceptIO`](#except-io)
+[Gotta Catch 'Em All](#catch)
+[Going General](#transformer)
+
+
+
+<a name="either"/>
 ### Either Left or Right
 
 Before we break into the mysterious world of monad transformers, I want to
@@ -146,7 +162,7 @@ This function works the same way as the previous one, except with the
 pattern matching hidden inside the call to `either`.
 
 
-
+<a name="side-effects"/>
 ### Introducing Side-Effects
 
 Now we'll use the domain as some sort of "user token" – a value the user
@@ -246,7 +262,7 @@ handle errors *and* `IO` actions.
 Too good to be true? Read on and find out.
 
 
-
+<a name="either-io"/>
 ### We Can Make Our Own Monads
 
 We keep coming across the `IO (Either e a)` type, so maybe there is something
@@ -273,7 +289,7 @@ So already we have a way to go between our own type and the combination
 we used previously! That's *gotta* be useful somehow.
 
 
-
+<a name="type-classes"/>
 ### Implementing Instances for Common Typeclasses
 
 This section might be a little difficult if you're new to the language and
@@ -341,7 +357,7 @@ are many ways to write these definitions, and none is better than the other
 as long as all are correct.
 
 
-
+<a name="using"/>
 ### Using `EitherIO`
 
 Now that our `EitherIO` type is a real monad, we'll try to put it to work!
@@ -408,8 +424,8 @@ But this looks even *more* horrible than it was before! Relax. We'll take a
 detour to clean this up slightly.
 
 
-
-### Do you even lift?
+<a name="lifting"/>
+### Do You Even Lift?
 
 The more general pattern here is that we have two kinds of functions: Those
 that return `IO` something, and those that return `Either` something. We want
@@ -512,7 +528,7 @@ signal errors and let our `EitherIO` monad take care of them just like it
 takes care of `IO` actions.
 
 
-
+<a name="throwing"/>
 ### Signalling Errors
 
 But how *are* we signalling errors, really? It turns out that to signal
@@ -544,8 +560,8 @@ userLogin = do
      else throwE WrongPassword
 ```
 
-
-### `throwE`? What is this, Java?
+<a name="java"/>
+### `throwE`? What Is This, Java?
 
 No, of course not. But I did chose that name deliberately. What we have with
 our EitherIO monad is looking more and more like exceptions in languages like
@@ -558,7 +574,7 @@ control flow. Another difference is that our "exceptions" are checked by the
 type system, so we can't forget to catch our exceptions.
 
 
-
+<a name="except-io">
 ### `ExceptIO`
 
 But let's entertain that idea further. What happens if we just say goodbye to
@@ -575,8 +591,8 @@ It still works the same as before, it's just been renamed. The names need to
 be changed throughout the code, but other than that, the code still works.
 
 
-
-### Gotta catch 'em all
+<a name="catch"/>
+### Gotta Catch 'Em All
 
 So if we can *throw* what basically amounts to exceptions...
 
@@ -655,7 +671,7 @@ by the `printError` handler. You need to wrap your handlers in the order you
 expect them to catch exceptions from underneath each other.
 
 
-
+<a name="transformer"/>
 ### Going General
 
 There is just one, tiny, little thing I want to change in our `ExceptIO` type.
@@ -674,6 +690,11 @@ we defined manually already exist in [the `transformers` library][5], in [the
 `Control.Monad.Trans.Except` module][6]. Use that when you can instead of creating
 your own types, but feel free to reference our program here when you are
 curious how something works!
+
+
+<a name="code"/>
+### Appendix A: Complete Program
+
 
 ```haskell
 {-# LANGUAGE OverloadedStrings #-}
