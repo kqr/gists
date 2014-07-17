@@ -142,7 +142,7 @@ either :: (a -> c) -> (b -> c) -> Either a b -> c
 
 In other words, it "unpacks" the `Either` value and applies one of the two
 functions to get a `c` value back. In this program, we have an
-`Either EmailError Text` and we want just a `Text` back, which tells us what
+`Either LoginError Text` and we want just a `Text` back, which tells us what
 to print. So we can view the signature of `either` as
 
 ```haskell
