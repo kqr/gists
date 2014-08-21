@@ -3,12 +3,12 @@
 result=$(curl http://www.gitignore.io/api/$@ 2>/dev/null)
 
 if [[ $result =~ ERROR ]]; then
-    echo "Query $@ has no match"
+    echo "Query '$@' has no match. See a list of possible queries with '$(basename $0) list'"
 elif [[ $@ = list ]]; then
     echo $result
 else
     if [[ -f .gitignore ]]; then
-        echo ".gitignore already exists"
+        echo ".gitignore already exists, aborting."
     else
         echo -e "$result" > .gitignore
     fi
