@@ -8,7 +8,9 @@ elif [[ $1 = list ]]; then
     echo "$result"
 else
     if [[ -f .gitignore ]]; then
-        echo ".gitignore already exists, aborting."
+        result=`echo "$result" | grep -v "# Created by http://www.gitignore.io"`
+        echo ".gitignore already exists, appending"
+        echo "$result" >> .gitignore
     else
         echo "$result" > .gitignore
     fi
