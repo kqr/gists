@@ -801,7 +801,7 @@ getDomain email =
 
 
 [1]: http://davidcel.is/blog/2012/09/06/stop-validating-email-addresses-with-regex/
-[2]: http://www.haskell.org/haskellwiki/Typeclassopedia
+[2]: https://wiki.haskell.org/Typeclassopedia
 [3]: http://learnyouahaskell.com/functors-applicative-functors-and-monoids
 [4]: http://adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html
 [5]: http://hackage.haskell.org/package/transformers-0.4.1.0
