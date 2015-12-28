@@ -502,9 +502,9 @@ printResult :: Either LoginError Text -> IO ()
 printResult res =
   T.putStrLn $ case res of
     Right token        -> append "Logged in with token: " token
-    Left WrongPassword -> "Invalid email address entered."
+    Left InvalidEmail  -> "Invalid email address entered."
     Left NoSuchUser    -> "No user with that email exists."
-    Left InvalidEmail  -> "Wrong password."
+    Left WrongPassword -> "Wrong password."
 ```
 
 This function, just like the previous one, takes an `Either` value, so we'll
@@ -610,7 +610,7 @@ need to define a function that does the catching. Call it `catchE`, so it
 looks similar to `throwE`.
 
 ```haskell
-catchE :: ExceptIO e a -> (e -> ExceptIO c a) -> ExceptIO c a
+catchE :: ExceptIO e a -> (e -> ExceptIO e a) -> ExceptIO e a
 catchE throwing handler =
   ExceptIO $ do
     result <- runExceptIO throwing
