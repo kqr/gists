@@ -478,7 +478,7 @@ userLogin :: EitherIO LoginError Text
 userLogin = do
   token      <- getToken
   userpw     <- maybe (liftEither (Left NoSuchUser))
-                  return (Map.lookup token users)
+                  return (Map.lookup domain users)
   password   <- liftIO (T.putStrLn "Enter your password:" >> T.getLine)
 
   if userpw == password
