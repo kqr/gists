@@ -135,10 +135,22 @@ if __name__ == '__main__':
     ))
 
 
-    # Trying to cheat the taxes...
-    # Will blow up. Since `emissions` is a read-only lens, the composition
-    # `car | emissions` will also be read only.
-    set(car | emissions)(300)(arne)
+    try:
+        # Trying to cheat the taxes...
+        set(car | emissions)(300)(arne)
+    except ValueError as e:
+        # Will blow up. Since `emissions` is a read-only lens, the composition
+        # `car | emissions` will also be read only.
+        print(e)
 
 
+
+    #######################
+    ### Random example of lenses for immutable values (tuples are immutable)
+
+    first = Lens(getter=lambda t: t[0], setter=lambda t, v: (v, *t[1:]))
+    t = (3, 8, 5)
+    print('Tuple is {}'.format(t))
+    new_t = set(first)(42)(t)
+    print('New tuple is {}'.format(new_t))
 
