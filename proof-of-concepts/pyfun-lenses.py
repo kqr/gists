@@ -1,16 +1,7 @@
 
 class Lens:
-    def __init__(self, attr=None, getter=None, setter=None):
-        # If initialised with an attr, automatically create getters and
-        # setters. If initialised with getter and setter, create a lens
-        # from those (slightly more manual, but also more flexible!)
-        if attr and not getter and not setter:
-            def getter(obj):
-                return getattr(obj, attr)
-            def setter(obj, value):
-                setattr(obj, attr, value)
-                return obj
-
+    def __init__(self, getter=None, setter=None):
+        'Low-level method to create a lens from a getter and a setter'
         self.getter = getter
         self.setter = setter
 
@@ -37,6 +28,20 @@ class Lens:
             getter=self.getter and other.getter and new_getter,
             setter=self.setter and other.setter and new_setter,
         )
+
+
+def make_lens(attr):
+    'Make a lens from the attr of a mutable object'
+
+    def getter(obj):
+        return getattr(obj, attr)
+
+    def setter(obj, value):
+        setattr(obj, attr, value)
+        return obj
+
+    return Lens(getter=getter, setter=setter)
+
 
 
 def view(lens):
@@ -87,8 +92,8 @@ if __name__ == '__main__':
         def __init__(self, wear):
             self.wear = wear
 
-    name, eyes, colour = Lens('name'), Lens('eyes'), Lens('colour')
-    car, tires, wear = Lens('car'), Lens('tires'), Lens('wear')
+    name, eyes, colour = make_lens('name'), make_lens('eyes'), make_lens('colour')
+    car, tires, wear = make_lens('car'), make_lens('tires'), make_lens('wear')
     # The emissions are read-only, because you can not cheat your way
     # out of greenhouse gas taxes
     emissions = Lens(getter=lambda obj: getattr(obj, 'emissions'))
