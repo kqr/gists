@@ -148,11 +148,17 @@ if __name__ == '__main__':
 
 
     #######################
-    ### Random example of lenses for immutable values (tuples are immutable)
+    ### Random example of lenses for immutable values
 
+    # Make sure the setter returns a new value instead of trying to modify
+    # the original value!
     first = Lens(getter=lambda t: t[0], setter=lambda t, v: (v, *t[1:]))
-    t = (3, 8, 5)
-    print('Tuple is {}'.format(t))
-    new_t = set(first)(42)(t)
-    print('New tuple is {}'.format(new_t))
+
+    # Tuples are immutable
+    triple = (3, 8, 5)
+    print('Triple is {}'.format(triple))
+
+    # Setter returns a new tuple instead of mutating the old one
+    new_triple = set(first)(42)(triple)
+    print('New triple is {}'.format(new_triple))
 
