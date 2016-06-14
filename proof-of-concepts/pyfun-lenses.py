@@ -105,7 +105,7 @@ if __name__ == '__main__':
         view(eyes | colour)(arne)
     ))
 
-    # view(lens) = getter(lens)
+    # view(Lens(attr)) = getattr(attr)
     impact = view(car | emissions)
     print('They have an environmental impact that is {}.'.format(
         impact(arne) if impact(arne) <= 9000 else 'OVER NINE THOUSAND'
@@ -121,7 +121,9 @@ if __name__ == '__main__':
     #######################
     ### Perform some updates
 
-    set(eyes | colour)('Blue')(arne)
+    # set(Lens(attr)) = setattr(attr)
+    set_eye_colour = set(eyes | colour)
+    set_eye_colour('Blue')(arne)
     # Lenses can be aliased
     tirewear = tires | wear
     modify(car | tirewear)(lambda i: i*1.1)(arne)
