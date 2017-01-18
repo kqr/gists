@@ -344,7 +344,7 @@ as an experienced Haskell user might write them.
 
 ```haskell
 instance Applicative (EitherIO e) where
-  pure    = EitherIO . return . Right
+  pure    = EitherIO . return . return
   f <*> x = EitherIO $ liftA2 (<*>) (runEitherIO f) (runEitherIO x)
 
 instance Monad (EitherIO e) where
