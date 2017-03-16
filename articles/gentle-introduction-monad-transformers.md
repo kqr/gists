@@ -347,9 +347,11 @@ instance Applicative (EitherIO e) where
   pure    = EitherIO . return . Right
   f <*> x = EitherIO $ liftA2 (<*>) (runEitherIO f) (runEitherIO x)
 
+import Control.Monad (join)
+
 instance Monad (EitherIO e) where
   return  = pure
-  x >>= f = EitherIO $ runEitherIO x >>= either (return . Left) (runEitherIO . f)
+  x >>= f = join $ fmap f x
 ```
 
 If your definitions look nothing like these, don't worry. As long as your
