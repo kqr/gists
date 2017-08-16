@@ -105,20 +105,20 @@ if __name__ == '__main__':
     arne = Person('Arne', Eyes('Green'), Car(9001, Tires(0.4)))
 
     print('{} has {} eyes.'.format(
-        view(name)(arne),
+        view (name) (arne),
         # Lenses can be composed with |
-        view(eyes | colour)(arne)
+        view (eyes|colour) (arne)
     ))
 
     # view(Lens(attr)) = getattr(attr)
-    impact = view(car | emissions)
+    impact = view (car|emissions)
     print('They have an environmental impact that is {}.'.format(
         impact(arne) if impact(arne) <= 9000 else 'OVER NINE THOUSAND'
     ))
 
-    # You can make long chains of lenses with |
+    # You can make arbitrarily long chains of lenses with |
     print('Their car has {:.0f} % worn tires.'.format(
-        view(car | tires | wear)(arne)*100    
+        100 * view (car|tires|wear) (arne)
     ))
 
 
@@ -127,24 +127,27 @@ if __name__ == '__main__':
     ### Perform some updates
 
     # set(Lens(attr)) = setattr(attr)
-    set_eye_colour = set(eyes | colour)
-    set_eye_colour('Blue')(arne)
+    set_eye_colour = set (eyes|colour)
+    set_eye_colour ('Blue') (arne)
+    
     # Lenses can be aliased
-    tirewear = tires | wear
-    modify(car | tirewear)(lambda i: i*1.1)(arne)
+    tirewear = tires|wear
+    # Now you can replace "tires|wear" in all your lens
+    # chains with the new "tirewear" lens
+    modify (car|tirewear) (lambda i: i*1.1) (arne)
 
     print('{} now has {} eyes'.format(
-        view(name)(arne),
-        view(eyes | colour)(arne)
+        view (name) (arne),
+        view (eyes|colour) (arne)
     ))
     print('Their car now has {:.0f} % worn tires.'.format(
-        view(car | tires | wear)(arne)*100    
+        100 * view (car|tires|wear) (arne)   
     ))
 
 
     try:
         # Trying to cheat the taxes...
-        set(car | emissions)(300)(arne)
+        set (car|emissions) (300) (arne)
     except ValueError as e:
         # Will blow up. Since `emissions` is a read-only lens, the composition
         # `car | emissions` will also be read only.
@@ -164,6 +167,6 @@ if __name__ == '__main__':
     print('Triple is {}'.format(triple))
 
     # Setter returns a new tuple instead of mutating the old one
-    new_triple = set(first)(42)(triple)
+    new_triple = set (first) (42) (triple)
     print('New triple is {}'.format(new_triple))
 
