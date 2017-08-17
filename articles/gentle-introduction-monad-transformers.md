@@ -24,6 +24,7 @@ or, Values as Exceptions
 
 
 <a name="either"/>
+
 ### Either Left or Right
 
 Before we break into the mysterious world of monad transformers, I want to
@@ -164,6 +165,7 @@ pattern matching hidden inside the call to `either`.
 
 
 <a name="side-effects"/>
+
 ### Introducing Side-Effects
 
 Now we'll use the domain as some sort of "user token" – a value the user
@@ -264,6 +266,7 @@ Too good to be true? Read on and find out.
 
 
 <a name="either-io"/>
+
 ### We Can Make Our Own Monads
 
 We keep coming across the `IO (Either e a)` type, so maybe there is something
@@ -291,6 +294,7 @@ we used previously! That's *gotta* be useful somehow.
 
 
 <a name="type-classes"/>
+
 ### Implementing Instances for Common Typeclasses
 
 This section might be a little difficult if you're new to the language and
@@ -359,6 +363,7 @@ as long as all are correct.
 
 
 <a name="using"/>
+
 ### Using `EitherIO`
 
 Now that our `EitherIO` type is a real monad, we'll try to put it to work!
@@ -426,6 +431,7 @@ detour to clean this up slightly.
 
 
 <a name="lifting"/>
+
 ### Do You Even Lift?
 
 The more general pattern here is that we have two kinds of functions: Those
@@ -530,6 +536,7 @@ takes care of `IO` actions.
 
 
 <a name="throwing"/>
+
 ### Signalling Errors
 
 But how *are* we signalling errors, really? It turns out that to signal
@@ -562,6 +569,7 @@ userLogin = do
 ```
 
 <a name="java"/>
+
 ### `throwE`? What Is This, Java?
 
 No, of course not. But I did choose that name deliberately. What we have with
@@ -593,6 +601,7 @@ be changed throughout the code, but other than that, the code still works.
 
 
 <a name="catch"/>
+
 ### Gotta Catch 'Em All
 
 So if we can *throw* what basically amounts to exceptions...
@@ -673,6 +682,7 @@ expect them to catch exceptions from underneath each other.
 
 
 <a name="transformer"/>
+
 ### Going General
 
 There is just one, tiny, little thing I want to change in our `ExceptIO` type.
@@ -694,6 +704,7 @@ curious how something works!
 
 
 <a name="code"/>
+
 ### Appendix A: Complete Program
 
 
