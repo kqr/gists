@@ -811,6 +811,9 @@ getDomain email =
 ```
 
 
+Thanks for taking the time to read this! This is no doubt my second-most popular article ever, and certainly the only one to get printed on dead trees. I would like to move it to my blog where I keep most of my other articles, but that would necessarily mean either content duplication, or link rot – both of which are bad. Instead, I'll assume that if you've read all of the article and got as far as below this huge chunk of code, you may be interested in more Haskell, programming or computer writing. You can find it at https://two-wrongs.com/ where I publish my other articles.
+
+
 [1]: http://davidcel.is/blog/2012/09/06/stop-validating-email-addresses-with-regex/
 [2]: https://wiki.haskell.org/Typeclassopedia
 [3]: http://learnyouahaskell.com/functors-applicative-functors-and-monoids
