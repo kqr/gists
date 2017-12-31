@@ -584,6 +584,7 @@ type system, so we can't forget to catch our exceptions.
 
 
 <a name="except-io">
+  
 ### `ExceptIO`
 
 But let's entertain that idea further. What happens if we just say goodbye to
